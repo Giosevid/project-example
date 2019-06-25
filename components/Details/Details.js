@@ -1,70 +1,72 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   View,
   Text,
   TextInput,
-  TouchableOpacity,
-  FlatList
+  TouchableOpacity
 } from "react-native";
-import ListNote from "../ListNote";
-export default class Details extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      text: "",
-      items: {Uno: 'asi'}
-    };
-  }
+import ListNote from "../ListNote"; 
+import Scanner from "../QRCodeScanner/QRCodeScanner";
 
-  handlePress = () => {
-    this.setState(state => {
-      if (!state.text) return state;
-      return {
-        text: "",
-        items: {...state.items, [state.text]: state.text }
-      };
-    });
+function Details() {
+  const [text, setText] = useState("");
+  const [items, setItems] = useState({});
+
+  const addItem = () => {
+    const key = Math.random()
+      .toString(36)
+      .slice(2);
+    setItems(items => ({ ...items, [key]: text }));
+    setText("");
   };
 
-  handleDelete = id => {
-    this.setState(state => {
-        const { [id]: _, ...items } = state.items;
-        return {
-          items
-        };
-      });
-  };
+  const handleDelete = key => setItems(({ [key]: _, ...rest }) => rest);
 
-  render() {
-    const entries = Object.entries(this.state.items);
+  handleQr = () => {
+    console.log('entrokljlkj')
     return (
-      <View style={styles.container}>
-        <View style={styles.header}>
-          <TextInput
-            onChangeText={text => this.setState({ text })}
-            placeholder="Escribir nota..."
-            value={this.state.text}
-            style={styles.inputBox}
-          />
-          <TouchableOpacity style={styles.button} onPress={this.handlePress}>
-            <Text>Agregar</Text>
-          </TouchableOpacity>
-        </View>
-        <View>
-          {entries.length > 0 && (
-            <FlatList
-              data={entries}
-              renderItem={({ item }) => (
-                <ListNote onDelete={this.handleDelete} item={item} /> 
-              )}
-            />
-          )}
-        </View>
+      <View>
+        <Scanner/>
       </View>
-    );
+    )
   }
+
+  const entries = Object.entries(items);
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <TextInput
+          onChangeText={text => setText(text)}
+          placeholder="Escribir nota..."
+          value={text}
+          style={styles.inputBox}
+        />
+        <TouchableOpacity style={styles.button} onPress={addItem}>
+          <Text>Agregar</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={navigation.navigate('Scanner')}>
+          <Text>Qr</Text>
+        </TouchableOpacity>
+      </View>
+      {entries.length > 0 ? (
+        entries.map(([key, item]) => (
+          <ListNote
+            key={key}
+            item={item}
+            itemKey={key}
+            onDelete={handleDelete}
+          />
+        ))
+      ) : (
+        <Text>No hay elementos...</Text>
+      )}
+    </View>
+  );
 }
+
+export default Details;
 
 const styles = StyleSheet.create({
   container: {

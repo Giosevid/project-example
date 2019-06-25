@@ -1,4 +1,3 @@
-// WORKAROUND FOR THIS BUG https://github.com/Microsoft/TypeScript/issues/30471
-declare module "console" {
+declare module 'console' {
     export = typeof import("console");
 }

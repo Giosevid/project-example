@@ -17,9 +17,12 @@
     "react": "16.8.3",
     "react-dom": "^16.8.6",
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
+    "react-native-camera": "^2.11.0",
     "react-native-elements": "^1.1.0",
+    "react-native-qrcode-scanner": "^1.2.1",
     "react-native-web": "^0.11.4",
     "react-navigation": "^3.11.0",
+    "react-navigation-hooks": "^1.0.0-alpha.2",
     "react-redux": "^7.1.0",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
@@ -30,6 +33,7 @@
   },
   "devDependencies": {
     "babel-preset-expo": "^5.1.1",
+    "expo-barcode-scanner": "^5.0.1",
     "redux-devtools-extension": "^2.13.8"
   },
   "private": true

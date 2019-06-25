@@ -22,7 +22,7 @@ var options = {
     password: {
       placeholder: "password",
       error: 'Introduzca password'
-    }
+    },
   }
 };
 

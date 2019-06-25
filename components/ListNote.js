@@ -1,36 +1,28 @@
-import React, { Component } from "react";
+import React from "react";
 import { StyleSheet, View, Text, Button } from "react-native";
 
-
-export default class ListNote extends Component {
-  handlePress = () => {
-    const [key] = this.props.item;
-    this.props.onDelete(key);
-  };
-
-  render() {
-    const  [key, name]  = this.props.item;
-    return (
-      <View style={styles.container}>
-        <View style={styles.textList}>
-          <Text>{name}</Text>
-        </View>
-        <View style={styles.deleteButton}>
-          <Button
-            onPress={this.handlePress}
-            title="Eliminar"
-            color="#fff"
-            accessibilityLabel="Learn more about this purple button"
-          />
-        </View>
+function ListNote({ item, itemKey, onDelete }) {
+  return (
+    <View style={styles.container}>
+      <View style={styles.textList}>
+        <Text>{item}</Text>
       </View>
-    );
-  }
+      <View style={styles.deleteButton}>
+        <Button
+          onPress={() => onDelete(itemKey)}
+          title="Eliminar"
+          color="red"
+          accessibilityLabel="button"
+        />
+      </View>
+    </View>
+  );
 }
+
+export default ListNote;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between"
@@ -41,10 +33,6 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     padding: 15,
     marginTop: 10,
-    width: "60%"
-  },
-  deleteButton: {
-    backgroundColor: "red",
-    color: "#fff"
+    width: "70%"
   }
 });

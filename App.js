@@ -3,7 +3,8 @@ import Home from './components/Home/Home';
 import Details from './components/Details/Details';
 import { createAppContainer, createStackNavigator } from 'react-navigation';
 import {Provider} from 'react-redux';
-import {store} from './configureStore'
+import {store} from './configureStore';
+import Scanner from './components/QRCodeScanner/QRCodeScanner'
 
 const RootStack = createStackNavigator({
   Home: {
@@ -11,9 +12,12 @@ const RootStack = createStackNavigator({
   },
   Details: {
     screen: Details,
+  },
+  Scanner: {
+    screen: Scanner
   }
 }, {
-    initialRouteName: 'Details',
+    initialRouteName: 'Scanner',
 });
 
 
